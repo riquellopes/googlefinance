@@ -9,23 +9,25 @@ except ImportError:  # python 2
 __author__ = 'Hongtao Cai'
 
 googleFinanceKeyToFullName = {
-    u'id'     : u'ID',
-    u't'      : u'StockSymbol',
-    u'e'      : u'Index',
-    u'l'      : u'LastTradePrice',
-    u'l_cur'  : u'LastTradeWithCurrency',
-    u'ltt'    : u'LastTradeTime',
-    u'lt_dts' : u'LastTradeDateTime',
-    u'lt'     : u'LastTradeDateTimeLong',
-    u'div'    : u'Dividend',
-    u'yld'    : u'Yield'
+    u'id': u'ID',
+    u't': u'StockSymbol',
+    u'e': u'Index',
+    u'l': u'LastTradePrice',
+    u'l_cur': u'LastTradeWithCurrency',
+    u'ltt': u'LastTradeTime',
+    u'lt_dts': u'LastTradeDateTime',
+    u'lt': u'LastTradeDateTimeLong',
+    u'div': u'Dividend',
+    u'yld': u'Yield'
 }
+
 
 def buildUrl(symbols):
     symbol_list = ','.join([symbol for symbol in symbols])
     # a deprecated but still active & correct api
     return 'http://finance.google.com/finance/info?client=ig&q=' \
         + symbol_list
+
 
 def request(symbols):
     url = buildUrl(symbols)
@@ -35,6 +37,7 @@ def request(symbols):
     content = resp.read().decode('ascii', 'ignore').strip()
     content = content[3:]
     return content
+
 
 def replaceKeys(quotes):
     global googleFinanceKeyToFullName
@@ -46,6 +49,7 @@ def replaceKeys(quotes):
                 qReadableKey[googleFinanceKeyToFullName[k]] = q[k]
         quotesWithReadableKey.append(qReadableKey)
     return quotesWithReadableKey
+
 
 def getQuotes(symbols):
     '''
@@ -65,10 +69,10 @@ def getQuotes(symbols):
     :param symbols: a single symbol or a list of stock symbols
     :return: real-time quotes list
     '''
-    if type(symbols) == type('str'):
+    if isinstance(symbols, str):
         symbols = [symbols]
     content = json.loads(request(symbols))
-    return replaceKeys(content);
+    return replaceKeys(content)
 
 if __name__ == '__main__':
     try:

@@ -1,6 +1,7 @@
 import googlefinance
 import unittest
 
+
 class TestQuotes(unittest.TestCase):
 
     def test_one_symbol(self):
@@ -14,4 +15,3 @@ class TestQuotes(unittest.TestCase):
         self.assertEqual(quotes[0]["StockSymbol"], "GOOG")
         self.assertEqual(quotes[1]["Index"], "VIE")
         self.assertEqual(quotes[1]["StockSymbol"], "BKS")
-

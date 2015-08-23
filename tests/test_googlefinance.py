@@ -15,3 +15,8 @@ class TestQuotes(unittest.TestCase):
         self.assertEqual(quotes[0]["StockSymbol"], "GOOG")
         self.assertEqual(quotes[1]["Index"], "VIE")
         self.assertEqual(quotes[1]["StockSymbol"], "BKS")
+
+    def test_empty(self):
+        with self.assertRaises(Exception) as e:
+            googlefinance.getQuotes("")
+        self.assertTrue("Can not be blank." in str(e.exception))

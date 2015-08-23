@@ -17,6 +17,8 @@ class TestQuotes(unittest.TestCase):
         self.assertEqual(quotes[1]["StockSymbol"], "BKS")
 
     def test_empty(self):
-        with self.assertRaises(Exception) as e:
+        try:
             googlefinance.getQuotes("")
-        self.assertTrue("Can not be blank." in str(e.exception))
+            self.assertTrue(False)
+        except Exception as e:
+            self.assertTrue("Can not be blank." in str(e))

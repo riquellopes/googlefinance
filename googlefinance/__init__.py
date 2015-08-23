@@ -23,9 +23,9 @@ googleFinanceKeyToFullName = {
 
 
 def buildUrl(symbols):
-    aux_symbols = filter(lambda value: value.strip() != "", symbols)
-    if len(aux_symbols) != len(symbols):
-        raise Exception("Does not input value empty.")
+    aux_symbols = [s for s in symbols if s.strip() != ""]
+    if len(aux_symbols) == 0 or len(aux_symbols) != len(symbols):
+        raise Exception("Can not be blank.")
     # a deprecated but still active & correct api
     return 'http://finance.google.com/finance/info?client=ig&q={0}'.format(
         ','.join(aux_symbols))
